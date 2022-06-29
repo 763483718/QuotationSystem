@@ -332,7 +332,6 @@ void MainWindow::setData(int blockDisplay)
             ui->tV_products->setColumnHidden(11,false);//操作
             ui->tV_products->setColumnHidden(15,false);//操作
         }
-        cout<<"sssssss"<<endl;
         //调用自定义接口设置model的数据
         int rowsize=producttable::pproducttable->getModelRows();
         productsmodel->setModelData(product_data,rowsize);
@@ -345,7 +344,6 @@ void MainWindow::setData(int blockDisplay)
            p_buttons = new buttonDelegate(ui->tV_products);
            ui->tV_products->setItemDelegateForColumn(15, p_buttons);//列插入按钮
         }
-        cout<<"fffffff"<<endl;
         p_imgpath_buttons=new imgPathDelegate(ui->tV_products);
         ui->tV_products->setItemDelegateForColumn(1,p_imgpath_buttons);
 

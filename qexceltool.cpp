@@ -670,7 +670,7 @@ int QExcelTool::uploadImages()
     pHttpTool->bindCallback(QExcelTool::interfaceCallback);
     for(auto item : lImagePaths){
         pHttpTool->insertFilePath(item);
-        cout<<"imagePath:\t"<<item.toStdString()<<endl;
+        cout<< __func__ << "\timagePath:\t"<<item.toStdString()<<endl;
     }
     pHttpTool->POST(UPLOADIMAGE_CODE);
     lk_http.unlock();
@@ -1692,11 +1692,12 @@ void QExcelTool::judgeTypeCallback(QJsonObject info, QJsonValue data)
 
         QList<QProduct> pCopy = lProducts;
         QMap<int,QList<QProduct>> map;
-        cout<<"SrclProductsSize:"<<lProducts.size()<<endl;
+//        cout<<"SrclProductsSize:"<<lProducts.size()<<endl;
         for(int i = size - 1;i >= 0; i--){
             int item = json.at(i).toObject().value("index").toString().toInt();
             int id = json.at(i).toObject().value("id").toInt();
             QProduct product = pCopy.at(item);
+            lImagePaths.removeAt(item);
             product.setp_id(id);
 
             block = (id - 1) / BlockSize;
@@ -1838,7 +1839,7 @@ void QExcelTool::uploadImagesCallback(QJsonObject info,QJsonValue data)
 {
     std::unique_lock<std::mutex> lk_modify(mModifyMutex);
     if(info.value("statusCode").toInt() == 200){
-
+        cout << __func__ << "\tuploadImages succ\n";
     }else{
         emit signals_finished(UPLOAD_IMAGE_ERROR,-1);
     }
