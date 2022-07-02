@@ -369,7 +369,7 @@ void producttable::setModelData()
 void producttable::setModelData1(const QList<products> &datas,int row)
 {
     beginResetModel();
-    cout<<"setModelData1"<<endl;
+//    cout<<"setModelData1"<<endl;
     productVec=datas;
     tableRows=row;
     endResetModel();

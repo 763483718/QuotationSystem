@@ -147,12 +147,12 @@ int QExcelTool::getProducts(int block,QList<QProduct> &products)
 
 int QExcelTool::resortProducts(const QList<int> &srcIds, QList<QProduct> &products)
 {
-    cout << "productsID:\t";
-    for(auto p : products)
-    {
-        cout << p.getp_id() << "\t";
-    }
-    cout << endl;
+//    cout << "productsID:\t";
+//    for(auto p : products)
+//    {
+//        cout << p.getp_id() << "\t";
+//    }
+//    cout << endl;
 
     for(int i = 0; i < srcIds.size(); i++)
     {
@@ -346,12 +346,21 @@ int QExcelTool::findProductByIds(int block, QList<int> ids, QList<QProduct> &pro
     mMaxRow = pXlsxCache->dimension().rowCount();
     mRow = 1;
 
+    int recordId = -1;
     for(auto id : ids){
-//        nextCacheProduct(id);
-        findRowById(id);
-        QProduct product;
-        readCacheProduct(product);
-        products.push_back(product);
+        if(id == recordId)
+        {
+            products.push_back(products.back());
+        }
+        else
+        {
+    //      nextCacheProduct(id);
+            findRowById(id);
+            QProduct product;
+            readCacheProduct(product);
+            products.push_back(product);
+        }
+        recordId = id;
     }
 
     pXlsxCache->deleteLater();
